@@ -1,23 +1,33 @@
 'use strict';
 
-const employees = Array.from(document.querySelectorAll('ul li'));
+let employees = Array.from(document.querySelectorAll('ul li'));
 
-employees.sort((a, b) => {
-  const salaryA = parseFloat(
-    a.getAttribute('data-salary').replace(/[^\d.-]/g, ''),
-  );
-  const salaryB = parseFloat(
-    b.getAttribute('data-salary').replace(/[^\d.-]/g, ''),
-  );
+function sortList(list) {
+  employees = list.sort((a, b) => {
+    const salaryA = parseFloat(
+      a.getAttribute('data-salary').replace(/[^\d.-]/g, ''),
+    );
+    const salaryB = parseFloat(
+      b.getAttribute('data-salary').replace(/[^\d.-]/g, ''),
+    );
 
-  return salaryB - salaryA;
-});
+    return salaryB - salaryA;
+  });
 
-const employeeList = document.querySelector('ul');
+  return employees;
+}
 
-employeeList.innerHTML = '';
+function getEmployees(list) {
+  const employeeList = document.querySelector('ul');
 
-// Додаємо відсортовані <li> елементи назад у <ul>
-employees.forEach((employee) => {
-  employeeList.appendChild(employee);
-});
+  employeeList.innerHTML = '';
+
+  list.forEach((employee) => {
+    employeeList.appendChild(employee);
+  });
+
+  return list;
+}
+
+sortList(employees);
+getEmployees(employees);
